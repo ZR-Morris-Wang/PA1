@@ -46,7 +46,7 @@ void SortTool::QuickSortSubVector(vector<int>& data, int low, int high, const in
         } else {
             split = RandomizedPartition(data, low, high);
         }
-        QuickSortSubVector(data, low, split, flag);
+        QuickSortSubVector(data, low, split - 1, flag);
         QuickSortSubVector(data, split + 1, high, flag);
     }
 }
@@ -58,40 +58,42 @@ int SortTool::RandomizedPartition(vector<int>& data, int low, int high){
     data[high] = data[key];
     data[key] = temp;
 
-    temp = key;
-    key = high;
-    high = temp;    // reallocate the index for readability
-
+    key = high; // reallocate the index for readability
+    temp = 0;
+    int i = low;
     int j = low;
-    for(int i = low; i < high; i++) {
-        if(data[i] <= data[key]) {
+    for(; j < high; j++) {
+        if(data[j] <= data[key]) {
             temp = data[i];
             data[i] = data[j];
-            j++;
+            data[j] = temp;
+            i++;
         }
     }
-    temp = data[j];
-    data[j] = data[key];
-    data[key] = temp;
-    return j;   // new split point
+    temp = data[i];
+    data[i] = data[key];
+    data[high] = temp;
+    return i;   // new split point
 }
 int SortTool::Partition(vector<int>& data, int low, int high) {
     // Function : Partition the vector 
     // TODO : Please complete the function
     int key = high;
     int temp = 0;
+    int i = low;
     int j = low;
-    for(int i = low; i < high; i++) {
-        if(data[i] <= data[key]) {
+    for(; j < high; j++) {
+        if(data[j] <= data[key]) {
             temp = data[i];
             data[i] = data[j];
-            j++;
+            data[j] = temp;
+            i++;
         }
     }
-    temp = data[j];
-    data[j] = data[key];
-    data[key] = temp;
-    return j;   // new split point
+    temp = data[i];
+    data[i] = data[key];
+    data[high] = temp;
+    return i;   // new split point
 }
 
 // Merge sort method
