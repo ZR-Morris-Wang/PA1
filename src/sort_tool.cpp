@@ -157,6 +157,17 @@ void SortTool::BottomUpMergeSort(vector<int>& data)
     2. Iteratively merge each pair of 2 neighbor groups into one larger group
     3. Finally we obtain exactly one sorted group
   */
+
+    int n = data.size();
+    for(int i = 1; i < n; i *= 2) {
+        for(int j = 0; j < n - 1; j += 2 * i) {
+            int low = j;
+            int middle1 = j + i - 1;
+            int middle2 = j + i;
+            int high = (j + 2 * i - 1) - (n - 1) < 0 ? (j + 2 * i - 1) : (n - 1);
+            Merge(data, low, middle1, middle2, high);
+        }
+    }
 }
 
 // Heap sort method, be aware that you are NOT required to implement heap sort in PA1
