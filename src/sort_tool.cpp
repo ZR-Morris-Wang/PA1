@@ -135,12 +135,19 @@ void SortTool::Merge(vector<int>& data, int low, int middle1, int middle2, int h
     int j = 0;
     int k = low;
     while(i < L.size() - 1 || j < R.size() - 1) {
-        if(L[i] <= R[j] && !(L[i] == INT_MAX && R[j] == INT_MAX)) {
-            data[k] = L[i];
-            i++;
+        if(L[i] <= R[j] /*&& !(L[i] == INT_MAX && R[j] == INT_MAX)*/) {
+            if(i != L.size() - 1) {
+                data[k] = L[i];
+                i++;
+            } else {
+                data[k] = R[j];
+                j++;
+            }
         } else {
-            data[k] = R[j];
-            j++;
+            if(j != R.size() - 1) {
+                data[k] = R[j];
+                j++;
+            }
         }
         k++;
     }

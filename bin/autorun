@@ -1,0 +1,24 @@
+#!/bin/bash
+
+input_dir="../inputs"
+output_dir="../outputs"
+
+# Define the input files
+input_files=("4000.case2.in" "4000.case3.in" "4000.case1.in" "16000.case2.in" "16000.case3.in" "16000.case1.in" "32000.case2.in" "32000.case3.in" "32000.case1.in" "1000000.case2.in" "1000000.case3.in" "1000000.case1.in")
+
+# Define the sorting algorithms
+algorithms=("IS" "MS" "BMS" "QS" "RQS")
+
+# Loop through each input file
+for input_file in "${input_files[@]}"; do
+    # Loop through each sorting algorithm
+    for algo in "${algorithms[@]}"; do
+        # Define the output file name
+        output_file="$output_dir/${algo}/${algo}$(echo $input_file | sed 's/\.in$//').out"
+        echo $output_file
+        # Run the NTU_sort command
+        ./NTU_sort -$algo "$input_dir/$input_file" "$output_file"
+        echo ""
+    done
+done
+
